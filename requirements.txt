@@ -1,0 +1,6 @@
+yt-dlp
+openai-whisper
+torch
+ollama
+moviepy==1.0.3
+ffmpeg-pythonedge-tts
