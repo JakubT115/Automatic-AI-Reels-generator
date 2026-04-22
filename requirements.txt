@@ -1,6 +1,42 @@
-yt-dlp
+# --- EXTERNAL SYSTEM DEPENDENCIES (Installed outside of Pip) ---
+# Note: For the scripts to work properly, you must install these system tools:
+#
+# 1. Deno: JavaScript runtime environment, required by `yt-dlp` to bypass
+#    the latest YouTube security measures (e.g., cipher extraction from JS files).
+#    Installation (Mac): brew install deno
+#    Or via website:     https://deno.com
+#
+# 2. FFmpeg: Required by libraries for video and audio manipulation (moviepy, pydub, yt-dlp)
+#    and by `compressor.py`.
+#    Installation (Mac): brew install ffmpeg
+#
+# 3. Ollama: Required for running local language models (e.g., summarizer logic and podcast generator).
+#    Installation via:   https://ollama.com
+#    Model download:     Run e.g. `ollama run llama3` in the terminal before running the script.
+# ------------------------------------------------------------------
+
+# --- PYTHON PACKAGES (Pip) ---
+
+# Video and Audio downloading (YouTube)
+yt-dlp>=2024.03.10
+
+# AI Models and Voice Generation (XTTS)
+TTS>=0.22.0
+
+# AI and Transcription (Whisper)
 openai-whisper
 torch
+torchaudio
+torchvision
+
+# LLM (API access to the local Ollama service)
 ollama
+
+# Video, audio, and image processing
 moviepy==1.0.3
-ffmpeg-pythonedge-tts
+pydub
+Pillow>=9.0.0
+
+# Other auxiliary packages
+numpy
+scipy
