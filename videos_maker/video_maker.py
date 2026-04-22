@@ -2,19 +2,20 @@ import PIL.Image
 if not hasattr(PIL.Image, 'ANTIALIAS'):
     PIL.Image.ANTIALIAS = PIL.Image.LANCZOS
 
-from moviepy.editor import VideoFileClip, AudioFileClip, TextClip, CompositeVideoClip
+from moviepy.editor import VideoFileClip, AudioFileClip, TextClip, CompositeVideoClip, vfx
 
 # ==========================================
 # 1. PRZYGOTOWANIE WIDEO W TLE
 # ==========================================
 def prepare_background_video(background_video_path, audio_clip):
     """
-    Ładuje wideo w tle, docina je do długości audio i podmienia dźwięk.
+    Ładuje wideo w tle, zapętla je aby nie skończyło się przed audio, i podmienia dźwięk.
     """
     bg_clip = VideoFileClip(background_video_path).resize(height=1080)
     
-    # Docinamy obraz do długości głosu lektora (lub oryginalnego audio)
-    bg_clip = bg_clip.subclip(0, audio_clip.duration)
+    # Jeżeli audio jest dłuższe niż wideo w tle, zapętlamy wideo do pełnej długości audio.
+    # Używamy vfx.loop aby wideo zawsze wystarczyło.
+    bg_clip = bg_clip.fx(vfx.loop, duration=audio_clip.duration)
     
     # Nakładamy wygenerowany głos AI (lub oryginalny) na wideo
     bg_clip = bg_clip.set_audio(audio_clip)
